@@ -28,7 +28,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     Timer temporizador = new Timer (10, new ActionListener() {
    @Override
    public void actionPerformed(ActionEvent e){
-       
+       bucleDelJuego();
    }
 });
     
