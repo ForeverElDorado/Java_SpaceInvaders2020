@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 import java.awt.event.ActionListener;
+
 /**
  * WRITTEN AND DIRECTED BY ALVARO GARCIA HERRERO D:
  */
@@ -21,17 +22,20 @@ public class VentanaJuego extends javax.swing.JFrame {
 
     int filasMarcianos = 5;
     int columnaMarcianos = 10;
+    int contador = 0;
 
     BufferedImage buffer = null;
     //Bucle de animacion del juego en este caso es un hilo de ejecucion
     //que se encarga de refescar el contenido de la pantalla
-    Timer temporizador = new Timer (10, new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e){
-       bucleDelJuego();
-   }
-});
-    
+    Timer temporizador = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            bucleDelJuego();
+        }
+    });
+
+    Marciano miMarciano = new Marciano(ANCHO_PANTALLA);
+    /////////////////////////////////////////////
 
     /**
      * Creates new form VentanaJuego
@@ -42,22 +46,33 @@ public class VentanaJuego extends javax.swing.JFrame {
         //Crea una imagen de mismo alto y ancho que el lienzo
         buffer = (BufferedImage) jPanel1.createImage(ANCHO_PANTALLA, ALTO_PANTALLA);
         buffer.createGraphics();
-        
+
         temporizador.start();
-        
+
     }
-   private void bucleDelJuego(){
-       Graphics2D g2 = (Graphics2D) buffer.getGraphics();
-       g2.setColor(Color.BLACK);
-       g2.fillRect(0, 0, ANCHO_PANTALLA, ALTO_PANTALLA);
-       
-       ////////////////////////////////////////////////////////
-       
-       
-       /////////////////////////////////////////////////////////
-       g2 = (Graphics2D) jPanel1.getGraphics();
-       g2.drawImage(buffer, 0,0, null);
-   }
+
+    private void bucleDelJuego() {
+        Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, ANCHO_PANTALLA, ALTO_PANTALLA);
+        contador++;
+
+        ////////////////////////////////////////////////////////
+        if(contador <50){
+        g2.drawImage(miMarciano.imagen1, 10, 10, null);
+        }
+        else if(contador <100){
+            g2.drawImage(miMarciano.imagen2, 10,10, null);
+        }
+        else{
+            contador = 0;
+        }
+
+        /////////////////////////////////////////////////////////
+        g2 = (Graphics2D) jPanel1.getGraphics();
+        g2.drawImage(buffer, 0, 0, null);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
