@@ -58,6 +58,41 @@ public class VentanaJuego extends javax.swing.JFrame {
         miNave.posX = ANCHO_PANTALLA / 2 - miNave.imagen.getWidth(this) / 2;
         miNave.posY = ALTO_PANTALLA - 100;
 
+        //Creamos array, es decir, el conjunto de marcianos de el mapa.
+        //AQUI SE HACEN LA ESTRUCTURA PARA OTROS NIVELES.
+        for (int i = 0; i < filasMarcianos; i++) {
+            for (int j = 0; j < columnaMarcianos; j++) {
+                listaMarcianos[i][j] = new Marciano(ANCHO_PANTALLA);
+                listaMarcianos[i][j].posX = j * (15 + listaMarcianos[i][j].imagen1.getWidth(null));
+                listaMarcianos[i][j].posY = i * (10 + listaMarcianos[i][j].imagen1.getHeight(null));
+                //El numero 15/10 hace referencia a los pixeles
+            }
+        }
+
+    }
+
+    //Creams el metodo que va a colocarles
+    private void pintaMarcianos(Graphics2D _g2) {
+        for (int i = 0; i < filasMarcianos; i++) {
+            for (int j = 0; j < columnaMarcianos; j++) {
+                //Movera a los marcianos
+                listaMarcianos[i][j].mueve(direccionMarciano);
+                if (listaMarcianos[i][j].posX >= ANCHO_PANTALLA - listaMarcianos[i][j].imagen1.getWidth(null)) {
+                    direccionMarciano = !direccionMarciano;
+                }
+                if(listaMarcianos[i][j].posX <=0){
+                        direccionMarciano = !direccionMarciano;
+                }
+                if (contador < 50) {
+                    _g2.drawImage(listaMarcianos[i][j].imagen1, listaMarcianos[i][j].posX, listaMarcianos[i][j].posY, null);
+
+                } else if (contador < 100) {
+                    _g2.drawImage(listaMarcianos[i][j].imagen2, listaMarcianos[i][j].posX, listaMarcianos[i][j].posY, null);
+                } else {
+                    contador = 0;
+                }
+            }
+        }
     }
 
     private void bucleDelJuego() {
@@ -67,13 +102,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         contador++;
 
         ////////////////////////////////////////////////////////
-        if (contador < 50) {
-            g2.drawImage(miMarciano.imagen1, 10, 10, null);
-        } else if (contador < 100) {
-            g2.drawImage(miMarciano.imagen2, 10, 10, null);
-        } else {
-            contador = 0;
-        }
+        pintaMarcianos(g2);
 
         g2.drawImage(miNave.imagen, miNave.posX, miNave.posY, null);
         g2.drawImage(miDisparo.imagen, miDisparo.posX, miDisparo.posY, null);

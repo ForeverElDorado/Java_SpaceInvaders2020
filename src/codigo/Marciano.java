@@ -17,6 +17,10 @@ public class Marciano {
     public Image imagen1 = null;
     public Image imagen2 = null;
 
+    public int posX = 0;
+    public int posY = 0;
+    
+
     private int anchoPantalla;
     public int vida = 50;
 
@@ -28,5 +32,14 @@ public class Marciano {
         } catch (Exception e) {
 
         }
+    }
+    public void mueve(boolean direccion){
+        if(direccion){//Mueve a los marcianitos jeje con true
+            posX++;
+        }
+        else{//con false
+            posX--;
+        }
+        
     }
 }
