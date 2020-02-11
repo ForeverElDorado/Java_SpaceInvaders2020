@@ -13,6 +13,8 @@ import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * WRITTEN AND DIRECTED BY ALVARO GARCIA HERRERO D:
@@ -27,6 +29,9 @@ public class VentanaJuego extends javax.swing.JFrame {
     int contador = 0;
 
     BufferedImage buffer = null;
+    //buffer para guardar las imágenes de todos los marcianos
+    BufferedImage plantilla = null;
+    BufferedImage[] imagenes = new BufferedImage[30];
     //Bucle de animacion del juego en este caso es un hilo de ejecucion
     //que se encarga de refescar el contenido de la pantalla
     Timer temporizador = new Timer(10, new ActionListener() {
@@ -49,6 +54,17 @@ public class VentanaJuego extends javax.swing.JFrame {
      */
     public VentanaJuego() {
         initComponents();
+        try {
+            plantilla = ImageIO.read(getClass().getResource("/imagenes/invaders2.png"));
+        } catch (IOException ex) {
+
+        }
+        //cargo las 30 imágenes del spritesheet en el array de bufferedimages
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 5; j++) {
+                imagenes[i * 5 + j] = plantilla.getSubimage(j * 32, i * 32, 32, 32);
+            }
+        }
         setSize(ANCHO_PANTALLA, ALTO_PANTALLA);
         //Crea una imagen de mismo alto y ancho que el lienzo
         buffer = (BufferedImage) jPanel1.createImage(ANCHO_PANTALLA, ALTO_PANTALLA);
@@ -64,6 +80,8 @@ public class VentanaJuego extends javax.swing.JFrame {
         for (int i = 0; i < filasMarcianos; i++) {
             for (int j = 0; j < columnaMarcianos; j++) {
                 listaMarcianos[i][j] = new Marciano(ANCHO_PANTALLA);
+                listaMarcianos[i][j].imagen1 = imagenes[2];
+                listaMarcianos[i][j].imagen2 = imagenes[3];
                 listaMarcianos[i][j].posX = j * (15 + listaMarcianos[i][j].imagen1.getWidth(null));
                 listaMarcianos[i][j].posY = i * (10 + listaMarcianos[i][j].imagen1.getHeight(null));
                 //El numero 15/10 hace referencia a los pixeles
