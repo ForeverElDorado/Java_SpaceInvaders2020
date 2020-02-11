@@ -68,13 +68,18 @@ public class VentanaJuego extends javax.swing.JFrame {
                         .getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             }
         }
+        imagenes[20] = plantilla.getSubimage(0, 320, 66, 32);
+        imagenes[21] = plantilla.getSubimage(66, 320, 66, 32);
+        
         setSize(ANCHO_PANTALLA, ALTO_PANTALLA);
         //Crea una imagen de mismo alto y ancho que el lienzo
         buffer = (BufferedImage) jPanel1.createImage(ANCHO_PANTALLA, ALTO_PANTALLA);
         buffer.createGraphics();
 
         temporizador.start();
-
+        
+        miNave.imagen = imagenes[21];
+        
         miNave.posX = ANCHO_PANTALLA / 2 - miNave.imagen.getWidth(this) / 2;
         miNave.posY = ALTO_PANTALLA - 100;
 
@@ -83,8 +88,8 @@ public class VentanaJuego extends javax.swing.JFrame {
         for (int i = 0; i < filasMarcianos; i++) {
             for (int j = 0; j < columnaMarcianos; j++) {
                 listaMarcianos[i][j] = new Marciano(ANCHO_PANTALLA);
-                listaMarcianos[i][j].imagen1 = imagenes[2];
-                listaMarcianos[i][j].imagen2 = imagenes[3];
+                listaMarcianos[i][j].imagen1 = imagenes[2*i];
+                listaMarcianos[i][j].imagen2 = imagenes[3*i+1];
                 listaMarcianos[i][j].posX = j * (15 + listaMarcianos[i][j].imagen1.getWidth(null));
                 listaMarcianos[i][j].posY = i * (10 + listaMarcianos[i][j].imagen1.getHeight(null));
                 //El numero 15/10 hace referencia a los pixeles
