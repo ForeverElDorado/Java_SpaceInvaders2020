@@ -7,6 +7,7 @@ package codigo;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
@@ -31,7 +32,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     BufferedImage buffer = null;
     //buffer para guardar las imágenes de todos los marcianos
     BufferedImage plantilla = null;
-    BufferedImage[] imagenes = new BufferedImage[30];
+    Image[] imagenes = new Image[30];
     //Bucle de animacion del juego en este caso es un hilo de ejecucion
     //que se encarga de refescar el contenido de la pantalla
     Timer temporizador = new Timer(10, new ActionListener() {
@@ -60,9 +61,11 @@ public class VentanaJuego extends javax.swing.JFrame {
 
         }
         //cargo las 30 imágenes del spritesheet en el array de bufferedimages
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 5; j++) {
-                imagenes[i * 5 + j] = plantilla.getSubimage(j * 32, i * 32, 32, 32);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                imagenes[i * 4 + j] = plantilla
+                        .getSubimage(j * 64, i * 64, 64, 64)
+                        .getScaledInstance(32, 32, Image.SCALE_SMOOTH);
             }
         }
         setSize(ANCHO_PANTALLA, ALTO_PANTALLA);
