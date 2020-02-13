@@ -173,23 +173,28 @@ public class VentanaJuego extends javax.swing.JFrame {
     public void chequeaColision() {
         Rectangle2D.Double rectanguloMarciano = new Rectangle2D.Double();
         Rectangle2D.Double rectanguloDisparo = new Rectangle2D.Double();
+        for (int k = 0; k < ListaDisparos.size(); k++) {
 
-        //Calcula el rectangulo
-        rectanguloDisparo.setFrame(miDisparo.posX, miDisparo.posY, miDisparo.imagen.getWidth(null), miDisparo.imagen.getHeight(null));
-        for (int i = 0; i < filasMarcianos; i++) {
-            for (int j = 0; j < columnaMarcianos; j++) {
-                rectanguloMarciano.setFrame(listaMarcianos[i][j].posX, listaMarcianos[i][j].posY,
-                        listaMarcianos[i][j].imagen1.getWidth(null),
-                        listaMarcianos[i][j].imagen2.getHeight(null));
-                if (rectanguloDisparo.intersects(rectanguloMarciano)) {
-                    //Hacemos desaparecer a los marcianos y disparos
-                    listaMarcianos[i][j].posY = 2000;
-                    miDisparo.posY = -2000;
+            //Calcula el rectangulo
+            rectanguloDisparo.setFrame(ListaDisparos.get(k).posX,
+                    ListaDisparos.get(k).posY,
+                    ListaDisparos.get(k).imagen.getWidth(null),
+                    ListaDisparos.get(k).imagen.getHeight(null));
+            for (int i = 0; i < filasMarcianos; i++) {
+                for (int j = 0; j < columnaMarcianos; j++) {
+                    rectanguloMarciano.setFrame(listaMarcianos[i][j].posX, listaMarcianos[i][j].posY,
+                            listaMarcianos[i][j].imagen1.getWidth(null),
+                            listaMarcianos[i][j].imagen2.getHeight(null));
+                    if (rectanguloDisparo.intersects(rectanguloMarciano)) {
+                        //Hacemos desaparecer a los marcianos y disparos
+                        listaMarcianos[i][j].posY = 2000;
+                        miDisparo.posY = -2000;
+                        ListaDisparos.remove(k);
+                    }
                 }
+
             }
-
         }
-
     }
 
     /**
