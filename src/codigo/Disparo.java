@@ -7,6 +7,8 @@ package codigo;
 
 import java.awt.Image;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  *
@@ -19,10 +21,16 @@ public class Disparo {
     public int posY = 0;
     private boolean pulsadoIzquierda = false;
 
+    Clip sonidoDisparo;
+
     public Disparo() {
         try {
             imagen = ImageIO.read(getClass().getResource("/imagenes/disparo.png"));
-
+            sonidoDisparo = AudioSystem.getClip();
+            sonidoDisparo.open(
+                    AudioSystem.getAudioInputStream(
+                            getClass().getResource("/sonido/explosion.wav"))
+            );
         } catch (Exception e) {
 
         }
@@ -30,13 +38,12 @@ public class Disparo {
     }
 
     public void mueve() {
-                 posY-=5;   
-                 
-                    
-                    
+        posY -= 5;
+
     }
-    public void posicionDisparo(Nave _nave){
-        posX = _nave.posX + _nave.imagen.getWidth(null)/2 - imagen.getWidth(null)/2;
-        posY = _nave.posY - _nave.imagen.getHeight(null)/2;
+
+    public void posicionDisparo(Nave _nave) {
+        posX = _nave.posX + _nave.imagen.getWidth(null) / 2 - imagen.getWidth(null) / 2;
+        posY = _nave.posY - _nave.imagen.getHeight(null) / 2;
     }
 }
