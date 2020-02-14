@@ -29,7 +29,7 @@ public class Disparo {
             sonidoDisparo = AudioSystem.getClip();
             sonidoDisparo.open(
                     AudioSystem.getAudioInputStream(
-                            getClass().getResource("/sonido/explosion.wav"))
+                            getClass().getResource("/sonido/honk.wav"))
             );
         } catch (Exception e) {
 

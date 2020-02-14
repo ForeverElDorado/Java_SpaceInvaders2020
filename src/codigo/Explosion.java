@@ -32,7 +32,7 @@ public class Explosion {
             sonidoExplosion = AudioSystem.getClip();
             sonidoExplosion.open(
                     AudioSystem.getAudioInputStream(
-                            getClass().getResource("/sonido/explosion.wav"))
+                            getClass().getResource("/sonido/marcianodead.wav"))
             );
         } catch (Exception ex) {
 
